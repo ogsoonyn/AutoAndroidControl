@@ -1,0 +1,49 @@
+﻿<Window x:Class="AutoAndroidControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoAndroidControl"
+        mc:Ignorable="d"
+        Title="Android自動タッチ機" Height="140" Width="480"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}" Icon="Resources/droid-chan.ico" MinWidth="480" MinHeight="140">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Androidデバイス" VerticalAlignment="Center" Margin="5"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0"
+                  ItemsSource="{Binding DeviceList.Value, Mode=TwoWay}" SelectedItem="{Binding AndroidDevice.Value}" Width="200"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="タップする場所" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5, 0">
+            <TextBlock Text="X:" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBox Width="80" TextWrapping="Wrap" Text="{Binding XCoord.Value}" VerticalAlignment="Center" />
+            <TextBlock Text="Y:" Width="20" HorizontalAlignment="Center"  VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBox Width="80" TextWrapping="Wrap" Text="{Binding YCoord.Value}" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="タップ間隔" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5, 0">
+            <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Value="{Binding Interval.Value}" Maximum="100" Minimum="1"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Interval.Value, StringFormat={}{0} sec}" VerticalAlignment="Top" Width="50" Margin="10,0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="{Binding StartButtonText.Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Command="{Binding RunAutomaticCommand, Mode=OneWay}" Margin="5"/>
+            <Button Content="Tap Once" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Command="{Binding TapOnceCommand, Mode=OneWay}" Margin="5"/>
+        </StackPanel>
+
+        <ProgressBar Grid.Row="3" Grid.ColumnSpan="3" Maximum="100" Value="{Binding Progress.Value}"/>
+
+    </Grid>
+</Window>
